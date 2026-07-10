@@ -7,10 +7,11 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - uses: tgymnich/fork-sync@v2.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          owner: UPSTREAM_OWNER_NAME
-          repo: UPSTREAM_REPO_NAME
-          head: master
-          base: master
+      - name: Checkout target fork
+        uses: actions/checkout@v4
+
+      - name: Sync upstream changes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh repo sync ${{ github.repository }} --branch master
