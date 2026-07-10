@@ -1,0 +1,16 @@
+name: Sync Fork
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+  workflow_dispatch: # Allows manual triggering
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: tgymnich/fork-sync@v2.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          owner: UPSTREAM_OWNER_NAME
+          repo: UPSTREAM_REPO_NAME
+          head: master
+          base: master
